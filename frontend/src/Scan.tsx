@@ -1,4 +1,5 @@
-import { useState, useRef, DragEvent, ChangeEvent } from 'react';
+import { useState, useRef } from 'react';
+import type { DragEvent, ChangeEvent } from 'react';
 import axios from 'axios';
 
 interface FileResult {
@@ -173,7 +174,7 @@ const Scan = () => {
 
     const renderSummary = () => {
         if (!results) return null;
-        const allMeta = results.flatMap(r => Object.entries(r.metadata || {}));
+        if (!results) return null;
         
         const keyMap: Record<string, Set<string>> = {};
         results.forEach(r => {
