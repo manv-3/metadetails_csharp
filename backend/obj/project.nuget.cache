@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "8gVLJxh61X0=",
+  "success": true,
+  "projectFilePath": "D:\\metadetails_csharp\\backend\\MetaDetective.Api.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\mvs35\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.11\\microsoft.aspnetcore.openapi.10.0.11.nupkg.sha512",
+    "C:\\Users\\mvs35\\.nuget\\packages\\microsoft.openapi\\2.7.5\\microsoft.openapi.2.7.5.nupkg.sha512"
+  ],
+  "logs": []
+}
