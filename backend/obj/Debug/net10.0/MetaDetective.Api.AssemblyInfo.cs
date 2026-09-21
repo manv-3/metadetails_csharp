@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MetaDetective.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2a2a52658d7af21702f3188b102e341119e01b31")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("MetaDetective.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MetaDetective.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

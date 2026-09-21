@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: metadetective-online-csharp
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: ConnectionStrings__DefaultConnection
+        fromDatabase:
+          name: metadetective-db-csharp
+          property: connectionString
+      - key: Jwt__Secret
+        generateValue: true
+
+databases:
+  - name: metadetective-db-csharp
+    plan: free
+    databaseName: metadetective
+    user: metadetective
