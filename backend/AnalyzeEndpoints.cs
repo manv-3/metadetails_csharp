@@ -39,6 +39,24 @@ public static class AnalyzeEndpoints
                     if (jsonArray != null && jsonArray.Count > 0)
                     {
                         metadata = jsonArray[0];
+                        if (metadata is JsonObject jsonObj)
+                        {
+                            var ext = Path.GetExtension(file.FileName).ToLower();
+                            if (ext == ".png" || ext == ".jpg" || ext == ".jpeg")
+                            {
+                                try {
+                                    var ocr = await RunTesseractAsync(tempPath);
+                                    if (!string.IsNullOrWhiteSpace(ocr)) jsonObj["OCRText"] = ocr;
+                                } catch {}
+                            }
+                            else if (ext == ".mp4" || ext == ".avi" || ext == ".mov" || ext == ".mp3" || ext == ".wav")
+                            {
+                                try {
+                                    var ffprobe = await RunFfprobeAsync(tempPath);
+                                    if (!string.IsNullOrWhiteSpace(ffprobe)) jsonObj["FFprobe"] = JsonNode.Parse(ffprobe);
+                                } catch {}
+                            }
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -153,6 +171,25 @@ public static class AnalyzeEndpoints
         
         return string.IsNullOrWhiteSpace(output) ? "[]" : output;
     }
+
+    private static async Task<string> RunTesseractAsync(string filePath)
+    {
+        var psi = new ProcessStartInfo { FileName = "tesseract", Arguments = $"\"{filePath}\" stdout", RedirectStandardOutput = true, RedirectStandardError = true, UseShellExecute = false, CreateNoWindow = true };
+        using var process = Process.Start(psi);
+        if (process == null) return "";
+        var output = await process.StandardOutput.ReadToEndAsync();
+        await process.WaitForExitAsync();
+        return output.Trim();
+    }
+    private static async Task<string> RunFfprobeAsync(string filePath)
+    {
+        var psi = new ProcessStartInfo { FileName = "ffprobe", Arguments = $"-v quiet -print_format json -show_format -show_streams \"{filePath}\"", RedirectStandardOutput = true, RedirectStandardError = true, UseShellExecute = false, CreateNoWindow = true };
+        using var process = Process.Start(psi);
+        if (process == null) return "";
+        var output = await process.StandardOutput.ReadToEndAsync();
+        await process.WaitForExitAsync();
+        return output.Trim();
+    }
 }
 
 public class ScrapeRequest
@@ -165,3 +202,5 @@ public class GeocodeRequest
     public double Lat { get; set; }
     public double Lon { get; set; }
 }
+
+

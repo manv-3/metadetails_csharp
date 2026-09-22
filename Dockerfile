@@ -23,6 +23,8 @@ WORKDIR /app
 # Install ExifTool (system dependency) for Debian-based dotnet image
 RUN apt-get update && apt-get install -y \
     libimage-exiftool-perl \
+    tesseract-ocr \
+    ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=build-backend /app/backend/out ./
